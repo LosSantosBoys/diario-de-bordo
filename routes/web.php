@@ -19,27 +19,17 @@ $router->get('/', function () use ($router) {
 
 $router->group(['prefix' => 'api'], function() use ($router) {
     // Listagem de posts
-    $router->get('/posts', function() {
-        return 'API para listar posts';
-    });
+    $router->get('/posts', 'PostController@index');
 
     // Criação de post
-    $router->post('/posts/new', function() {
-        return 'API para criar posts!';
-    });
+    $router->post('/posts/new', 'PostController@create');
 
     // Lista dados de um post específico
-    $router->get('/posts/{slug}', function($slug) {
-        return 'API para visualizar ' . $slug . '!';
-    });
+    $router->get('/posts/{slug}', 'PostController@show');
 
     // Remoção de post específico
-    $router->delete('/posts/{slug}', function($slug) {
-        return 'API para apagar ' . $slug . '!';
-    });
+    $router->delete('/posts/{slug}', 'PostController@delete');
 
     // Atualiza post específico
-    $router->put('/posts/{slug}', function($slug) {
-        return 'API de atualizar ' . $slug . '!';
-    });
+    $router->put('/posts/{slug}', 'PostController@update');
 });

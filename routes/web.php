@@ -14,5 +14,32 @@
 */
 
 $router->get('/', function () use ($router) {
-    return $router->app->version();
+    return 'Olá, mundo';
+});
+
+$router->group(['prefix' => 'api'], function() use ($router) {
+    // Listagem de posts
+    $router->get('/posts', function() {
+        return 'API para listar posts';
+    });
+
+    // Criação de post
+    $router->post('/posts/new', function() {
+        return 'API para criar posts!';
+    });
+
+    // Lista dados de um post específico
+    $router->get('/posts/{slug}', function($slug) {
+        return 'API para visualizar ' . $slug . '!';
+    });
+
+    // Remoção de post específico
+    $router->delete('/posts/{slug}', function($slug) {
+        return 'API para apagar ' . $slug . '!';
+    });
+
+    // Atualiza post específico
+    $router->put('/posts/{slug}', function($slug) {
+        return 'API de atualizar ' . $slug . '!';
+    });
 });

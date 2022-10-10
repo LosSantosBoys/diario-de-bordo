@@ -15,12 +15,12 @@ return new class extends Migration
     {
         Schema::create('posts', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('slug');
+            $table->string('slug')->unique();
             $table->string('titulo');
             $table->longText('conteudo');
             $table->timestamps();
-            $table->unsignedInteger('categoria_id');
-            $table->foreign('categoria_id')->references('id')->on('categories');
+            $table->unsignedInteger('categoria_id')->nullable()->constrained();
+            $table->foreign('categoria_id')->nullable()->references('id')->on('categories');
         });
     }
 

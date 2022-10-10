@@ -17,6 +17,7 @@ $router->get('/', function () use ($router) {
     return 'Olá, mundo';
 });
 
+// Posts
 $router->group(['prefix' => 'api'], function() use ($router) {
     // Listagem de posts
     $router->get('/posts', 'PostController@index');
@@ -32,4 +33,22 @@ $router->group(['prefix' => 'api'], function() use ($router) {
 
     // Atualiza post específico
     $router->put('/posts/{slug}', 'PostController@update');
+});
+
+// Categorias
+$router->group(['prefix' => 'api'], function() use ($router) {
+    // Listagem de categorias
+    $router->get('/categories', 'CategoryController@index');
+
+    // Criação de categoria
+    $router->post('/categories/new', 'CategoryController@create');
+
+    // Lista dados de uma categoria específica
+    $router->get('/categories/{slug}', 'CategoryController@show');
+
+    // Remoção de categoria específica
+    $router->delete('/categories/{slug}', 'CategoryController@delete');
+
+    // Atualiza categoria específica
+    $router->put('/categories/{slug}', 'CategoryController@update');
 });

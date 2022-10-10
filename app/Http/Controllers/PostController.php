@@ -42,6 +42,7 @@ class PostController extends Controller {
         $post->slug = $slug;
         $post->titulo = $titulo;
         $post->conteudo = $request->conteudo;
+        $post->categoria_id = $request->categoria_id;
         
         $post->save();
         return response()->json($post);
@@ -69,6 +70,7 @@ class PostController extends Controller {
         $post->slug = $request->slug;
         $post->titulo = $request->titulo;
         $post->conteudo = $request->conteudo;
+        $post->categoria_id = $request->categoria_id;
 
         $post->save();
         return response()->json($post);

@@ -48,15 +48,15 @@ class PostController extends Controller {
     }
 
     public function update(Request $request, $slug) {
-        $post = Post::where('slug', $slug)->first();
-
         $rules = [
+            'slug' => 'required|min:3',
             'titulo' => 'required|min:3|max:70',
             'conteudo' => 'required|min: 5'
         ];
 
         $feedback = [
             'required' => 'O campo :attribute deve ser preenchido.',
+            'slug.min' => 'O campo slug deve ter no mínimo 3 caracteres.',
             'titulo.min' => 'O campo titulo deve ter no mínimo 3 caracteres.',
             'titulo.max' => 'O campo titulo deve ter no máximo 70 caracteres.',
             'conteudo.min' => 'O campo conteudo deve ter no mínimo 5 caracteres.',
@@ -64,13 +64,10 @@ class PostController extends Controller {
 
         $this->validate($request, $rules, $feedback);
 
-        $post = new Post();
+        $post = Post::where('slug', $slug)->first();
 
-        $titulo = $request->titulo;
-        $slug = remove_accents(strtolower(str_replace(' ', '-', $titulo)));
-
-        $post->slug = $slug;
-        $post->titulo = $titulo;
+        $post->slug = $request->slug;
+        $post->titulo = $request->titulo;
         $post->conteudo = $request->conteudo;
 
         $post->save();

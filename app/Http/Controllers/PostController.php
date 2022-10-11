@@ -38,11 +38,11 @@ class PostController extends Controller {
         $post = new Post();
 
         $titulo = $request->titulo;
-        $slug = remove_accents(strtolower(str_replace(' ', '-', $titulo)));
+        $slug = clean($titulo);
 
         $post->slug = $slug;
-        $post->titulo = $titulo;
-        $post->conteudo = $request->conteudo;
+        $post->titulo = trim($titulo);
+        $post->conteudo = trim($request->conteudo);
         $post->categoria_id = $request->categoria_id;
         
         $post->save();

@@ -33,6 +33,9 @@ $router->group(['prefix' => 'api'], function() use ($router) {
 
     // Atualiza post específico
     $router->put('/posts/{slug}', 'PostController@update');
+
+    // Pesquisa post
+    $router->get('/posts/search/{query}', 'PostController@search');
 });
 
 // Categorias

@@ -18,7 +18,7 @@ $router->get('/', function () use ($router) {
 });
 
 // Posts
-$router->group(['prefix' => 'api'], function() use ($router) {
+$router->group(['prefix' => 'api/v1'], function() use ($router) {
     // Listagem de posts
     $router->get('/posts', 'PostController@index');
 
@@ -39,7 +39,7 @@ $router->group(['prefix' => 'api'], function() use ($router) {
 });
 
 // Categorias
-$router->group(['prefix' => 'api'], function() use ($router) {
+$router->group(['prefix' => 'api/v1'], function() use ($router) {
     // Listagem de categorias
     $router->get('/categories', 'CategoryController@index');
 

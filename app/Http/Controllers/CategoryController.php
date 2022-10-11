@@ -50,7 +50,7 @@ class CategoryController extends Controller {
         $this->validate($request, $rules, $feedback);
         
         $category = Category::where('titulo', $titulo)->first();
-        $titulo = $request->titulo;
+        $category->titulo = $request->titulo;
         
         $category->save();
         return response()->json($category);

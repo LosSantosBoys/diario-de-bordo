@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 require_once __DIR__ . '/../../helpers.php';
 
@@ -81,6 +82,15 @@ class PostController extends Controller {
         $post->delete();
 
         return response()->json('Post deletado com sucesso.');
+    }
+
+    public function search($query) {
+        $posts = DB::table('posts')
+            ->where('titulo', 'LIKE', "%{$query}%")
+            ->orWhere('slug', 'LIKE', "%{$query}%")
+            ->get();
+
+        return response()->json($posts);
     }
 }
 

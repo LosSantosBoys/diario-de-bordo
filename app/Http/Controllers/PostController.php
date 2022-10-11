@@ -68,9 +68,10 @@ class PostController extends Controller {
 
         $post = Post::where('slug', $slug)->first();
 
-        $post->slug = $request->slug;
-        $post->titulo = $request->titulo;
-        $post->conteudo = $request->conteudo;
+        $newSlug = clean($request->slug);
+        $post->slug = $newSlug;
+        $post->titulo = trim($request->titulo);
+        $post->conteudo = trim($request->conteudo);
         $post->categoria_id = $request->categoria_id;
 
         $post->save();

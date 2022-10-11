@@ -44,11 +44,11 @@ $router->group(['prefix' => 'api'], function() use ($router) {
     $router->post('/categories/new', 'CategoryController@create');
 
     // Lista dados de uma categoria específica
-    $router->get('/categories/{slug}', 'CategoryController@show');
+    $router->get('/categories/{titulo}', 'CategoryController@show');
 
     // Remoção de categoria específica
-    $router->delete('/categories/{slug}', 'CategoryController@delete');
+    $router->delete('/categories/{titulo}', 'CategoryController@delete');
 
     // Atualiza categoria específica
-    $router->put('/categories/{slug}', 'CategoryController@update');
+    $router->put('/categories/{titulo}', 'CategoryController@update');
 });

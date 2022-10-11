@@ -23,7 +23,7 @@ $router->group(['prefix' => 'api'], function() use ($router) {
     $router->get('/posts', 'PostController@index');
 
     // Criação de post
-    $router->post('/posts/new', 'PostController@create');
+    $router->post('/posts', 'PostController@create');
 
     // Lista dados de um post específico
     $router->get('/posts/{slug}', 'PostController@show');
@@ -41,7 +41,7 @@ $router->group(['prefix' => 'api'], function() use ($router) {
     $router->get('/categories', 'CategoryController@index');
 
     // Criação de categoria
-    $router->post('/categories/new', 'CategoryController@create');
+    $router->post('/categories', 'CategoryController@create');
 
     // Lista dados de uma categoria específica
     $router->get('/categories/{titulo}', 'CategoryController@show');

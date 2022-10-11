@@ -2,8 +2,6 @@
 
 if (!function_exists('clean')) {
     function clean($string) {
-        if (!preg_match('/[\x80-\xff]/', $string)) return $string;
-
         $chars = array(
             // Decompositions for Latin-1 Supplement
             chr(195).chr(128) => 'A', chr(195).chr(129) => 'A',
@@ -102,11 +100,11 @@ if (!function_exists('clean')) {
         );
 
         $string = strtr($string, $chars);
-        $string = preg_replace('/[^A-Za-z0-9\-]/', ' ', $string);  // Removes special chars.
+        $string = preg_replace('/[^A-Za-z0-9]/', ' ', $string);  // Removes special chars.
 
         $string = trim($string);
         $string = str_replace(' ', '-', $string); // Replaces all spaces with hyphens.
-         
+
         return preg_replace('/-+/', '-', $string); // Replaces multiple hyphens with single one.
     }
 }

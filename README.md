@@ -6,12 +6,12 @@ Back-end do Diário de Bordo do projeto Mental-aid. Desenvolvido com PHP no prim
 - [MySQL](https://www.mysql.com/)
 
 ## TODO
-- [ ]  Cadastro de posts
-- [ ]  Listagem de posts
-- [ ]  Exclusão de posts
-- [ ]  Edição de posts
+- [x]  Cadastro de posts
+- [x]  Listagem de posts
+- [x]  Exclusão de posts
+- [x]  Edição de posts
 - [ ]  Paginação de posts
-- [ ]  Exibição de posts
+- [x]  Exibição de posts
 - [ ]  Likes? de posts
 - [ ]  Comentários? de posts
 

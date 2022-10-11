@@ -19,7 +19,6 @@ class PostController extends Controller {
         return response()->json($post);
     }
 
-    // TODO: Adicionar categoria
     public function create(Request $request) {
         $rules = [
             'titulo' => 'required|min:3|max:70',

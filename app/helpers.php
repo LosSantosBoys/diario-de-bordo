@@ -1,7 +1,7 @@
 <?php
 
-if (!function_exists('remove_accents')) {
-    function remove_accents($string) {
+if (!function_exists('clean')) {
+    function clean($string) {
         if (!preg_match('/[\x80-\xff]/', $string)) return $string;
 
         $chars = array(
@@ -102,15 +102,13 @@ if (!function_exists('remove_accents')) {
         );
 
         $string = strtr($string, $chars);
-        return $string;
-    }
-}
+        $string = preg_replace('/[^A-Za-z0-9\-]/', ' ', $string);  // Removes special chars.
 
-if (!function_exists('remove_spc_chr')) {
-    $string = str_replace(' ', '-', $string); // Replaces all spaces with hyphens.
-    $string = preg_replace('/[^A-Za-z0-9\-]/', '', $string); // Removes special chars.
-     
-    return preg_replace('/-+/', '-', $string); // Replaces multiple hyphens with single one.
+        $string = trim($string);
+        $string = str_replace(' ', '-', $string); // Replaces all spaces with hyphens.
+         
+        return preg_replace('/-+/', '-', $string); // Replaces multiple hyphens with single one.
+    }
 }
 
 ?>

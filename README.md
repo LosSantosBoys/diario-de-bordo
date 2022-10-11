@@ -3,7 +3,9 @@ Back-end do Diário de Bordo do projeto Mental-aid. Desenvolvido com PHP no prim
 
 ## Tecnologias
 - [PHP](https://www.php.net/)
+- [Lumen](https://lumen.laravel.com/docs/9.x)
 - [MySQL](https://www.mysql.com/)
+- [Composer](https://getcomposer.org/)
 
 ## TODO
 - [x]  Cadastro de posts
@@ -23,13 +25,19 @@ Back-end do Diário de Bordo do projeto Mental-aid. Desenvolvido com PHP no prim
 
 ## API
 
-| Método    | Rota       | Descrição                            |
-| --------- | ---------- | ------------------------------------ |
-| HEAD, GET | /posts     | Lista todos os posts                 |
-| POST      | /posts/new | Cria um novo post                    |
-| HEAD, GET | /posts/:id | Lista dados de um post específico    |
-| PUT       | /posts/:id | Atualiza dados de um post específico |
-| DELETE    | /posts/:id | Apaga um post específico             |
+| Método    | Rota            | Descrição                                   |
+| --------- | ----------      | ------------------------------------------- |
+| GET       | /posts          | Lista todos os posts                        |
+| POST      | /posts/new      | Cria um novo post                           |
+| GET       | /posts/:id      | Lista dados de um post específico           |
+| PUT       | /posts/:id      | Atualiza dados de um post específico        |
+| DELETE    | /posts/:id      | Apaga um post específico                    |
+|           |                 |                                             |
+| GET       | /categories     | Lista todos as categorias                   |
+| POST      | /categories/new | Cria uma nova categoria                     |
+| GET       | /categories/:id | Lista dados de uma categoria específica     |
+| PUT       | /categories/:id | Atualiza dados de uma categoria específica  |
+| DELETE    | /categories/:id | Apaga uma categoria específica              |
 
 ## Como usar
 O projeto está dividido em dois repositórios:

@@ -14,6 +14,10 @@ Back-end do Diário de Bordo do projeto Mental-aid. Desenvolvido com PHP no prim
 - [x]  Exibição de posts
 - [ ]  Likes? de posts
 - [ ]  Comentários? de posts
+- [x]  Cadastro de categorias
+- [x]  Listagem de categorias
+- [x]  Exclusão de categorias
+- [x]  Edição de categorias
 
 ## Recursos
 

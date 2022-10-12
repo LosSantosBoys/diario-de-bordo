@@ -45,7 +45,7 @@ class PostController extends Controller
         $post->categoria_id = $request->categoria_id;
         
         $post->save();
-        return response()->json($post);
+        return new PostResource($post);
     }
 
     public function update(Request $request, $slug) {
@@ -74,7 +74,7 @@ class PostController extends Controller
         $post->categoria_id = $request->categoria_id;
 
         $post->save();
-        return response()->json($post);
+        return new PostResource($post);
     }
 
     public function delete($slug) {
@@ -92,6 +92,6 @@ class PostController extends Controller
             ->orWhere('slug', 'LIKE', "%{$query}%")
             ->get();
 
-        return response()->json($posts);
+        return new PostCollection($posts);
     }
 }

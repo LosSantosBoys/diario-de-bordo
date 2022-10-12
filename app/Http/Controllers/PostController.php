@@ -2,21 +2,24 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Post;
 use Illuminate\Http\Request;
+use App\Models\Post;
 use Illuminate\Support\Facades\DB;
+use App\Http\Resources\PostResource;
+use App\Http\Resources\PostCollection;
 
 require_once __DIR__ . '/../../helpers.php';
 
-class PostController extends Controller {
+class PostController extends Controller
+{
     public function index() {
         $posts = Post::all();
-        return response()->json($posts);
+        return new PostCollection($posts);
     }
 
     public function show($slug) {
         $post = Post::where('slug', $slug)->first();
-        return response()->json($post);
+        return new PostResource($post);
     }
 
     public function create(Request $request) {
@@ -93,5 +96,3 @@ class PostController extends Controller {
         return response()->json($posts);
     }
 }
-
-?>

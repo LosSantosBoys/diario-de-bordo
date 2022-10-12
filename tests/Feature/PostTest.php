@@ -2,16 +2,14 @@
 
 namespace Tests\Feature;
 
-// use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
-
-use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 const API_PATH = '/api/v1/posts';
 
 class PostTest extends TestCase
 {
-    use DatabaseMigrations;
+    use RefreshDatabase;
 
     /**
      * Testa se a API de CRIAR Post funciona.

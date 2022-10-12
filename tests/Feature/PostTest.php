@@ -109,7 +109,7 @@ class PostTest extends TestCase
             );
     }
 
-        /**
+    /**
      * Testa se a API de VISUALIZAR Post funciona.
      *
      * @return void

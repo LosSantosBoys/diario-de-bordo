@@ -79,9 +79,16 @@ class PostController extends Controller
 
     public function delete($slug) {
         $post = Post::where('slug', $slug)->first();
-        $post->delete();
+        
+        if ($post) {
+            $post->delete();
+            return response()->json(null, 204);
+        }
 
-        return response()->json('Post deletado com sucesso.');
+        return response()->json([
+            'status' => 'error',
+            'message' => 'Post não encontrado.'
+        ], 400);
     }
 
     public function search(Request $request) {

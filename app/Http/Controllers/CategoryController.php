@@ -2,19 +2,23 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\CategoryCollection;
+use App\Http\Resources\CategoryResource;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
+require_once __DIR__ . '/../../helpers.php';
+
 class CategoryController extends Controller {
     public function index() {
         $categories = Category::all();
-        return response()->json($categories);
+        return new CategoryCollection($categories);
     }
 
     public function show($slug) {
         $category = Category::where('slug', $slug)->first();
-        return response()->json($category);
+        return new CategoryResource($category);
     }
 
     public function create(Request $request) {

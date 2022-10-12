@@ -20,6 +20,7 @@ class CategoryFactory extends Factory
     public function definition()
     {
         return [
+            'slug' => clean($this->faker->sentence()),
             'titulo' => $this->faker->sentence(),
         ];
     }

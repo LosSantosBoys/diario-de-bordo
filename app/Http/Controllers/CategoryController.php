@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CategoryController extends Controller {
     public function index() {
@@ -11,8 +12,8 @@ class CategoryController extends Controller {
         return response()->json($categories);
     }
 
-    public function show($titulo) {
-        $category = Category::where('titulo', $titulo)->first();
+    public function show($slug) {
+        $category = Category::where('slug', $slug)->first();
         return response()->json($category);
     }
 
@@ -30,37 +31,52 @@ class CategoryController extends Controller {
         $this->validate($request, $rules, $feedback);
         
         $category = new Category();
-        $category->titulo = $request->titulo;
+        $category->slug = clean($request->titulo);
+        $category->titulo = trim($request->titulo);
         
         $category->save();
         return response()->json($category);
     }
 
-    public function update(Request $request, $titulo) {
+    public function update(Request $request, $slug) {
         $rules = [
+            'slug' => 'required|min:3',
             'titulo' => 'required|min:3|max:40'
         ];
 
         $feedback = [
             'required' => 'O campo :attribute deve ser preenchido.',
+            'slug.min' => 'O campo slug deve ter no mínimo 3 caracteres.',
             'titulo.min' => 'O campo titulo deve ter no mínimo 3 caracteres.',
             'titulo.max' => 'O campo titulo deve ter no máximo 40 caracteres.',
         ];
 
         $this->validate($request, $rules, $feedback);
         
-        $category = Category::where('titulo', $titulo)->first();
-        $category->titulo = $request->titulo;
+        $category = Category::where('slug', $slug)->first();
+        $category->slug = clean($request->slug);
+        $category->titulo = trim($request->titulo);
         
         $category->save();
         return response()->json($category);
     }
 
-    public function delete($titulo) {
-        $category = Category::where('titulo', $titulo)->first();
+    public function delete($slug) {
+        $category = Category::where('slug', $slug)->first();
         $category->delete();
 
         return response()->json('Categoria deletada com sucesso.');
+    }
+
+    public function search(Request $request) {
+        $query = $request->query('q');
+
+        $categories = DB::table('categories')
+            ->where('slug', 'LIKE', "%{$query}%")
+            ->orWhere('titulo', 'LIKE', "%{$query}%")
+            ->get();
+
+        return response()->json($categories);
     }
 }
 

@@ -5,7 +5,7 @@ Back-end do Diário de Bordo do projeto Mental-aid. Desenvolvido com PHP no prim
 ## Tecnologias
 
 -   [PHP](https://www.php.net/)
--   [Lumen](https://lumen.laravel.com/docs/9.x)
+-   [Laravel](https://laravel.com/docs/9.x)
 -   [MySQL](https://www.mysql.com/)
 -   [Composer](https://getcomposer.org/)
 
@@ -25,6 +25,17 @@ Back-end do Diário de Bordo do projeto Mental-aid. Desenvolvido com PHP no prim
 -   [x] Edição de categorias
 
 ## Recursos
+- [x] Pesquisa de posts
+- [x] Cadastro de posts
+- [x] Edição de posts
+- [x] Exclusão de posts
+- [x] Visualização de posts
+
+- [x] Pesquisa de categorias
+- [x] Cadastro de categorias
+- [x] Edição de categorias
+- [x] Exclusão de categorias
+- [x] Visualização de categorias
 
 ## API
 

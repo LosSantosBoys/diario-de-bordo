@@ -39,11 +39,8 @@ class PostController extends Controller
 
         $post = new Post();
 
-        $titulo = $request->titulo;
-        $slug = clean($titulo);
-
-        $post->slug = $slug;
-        $post->titulo = trim($titulo);
+        $post->slug = clean($request->titulo);
+        $post->titulo = trim($request->titulo);
         $post->conteudo = trim($request->conteudo);
         $post->categoria_id = $request->categoria_id;
         
@@ -87,7 +84,9 @@ class PostController extends Controller
         return response()->json('Post deletado com sucesso.');
     }
 
-    public function search($query) {
+    public function search(Request $request) {
+        $query = $request->query('q');
+
         $posts = DB::table('posts')
             ->where('titulo', 'LIKE', "%{$query}%")
             ->orWhere('slug', 'LIKE', "%{$query}%")

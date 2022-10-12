@@ -32,10 +32,10 @@ Route::controller(PostController::class)->prefix('/v1')->group(function() {
 
 // Categorias
 Route::controller(CategoryController::class)->prefix('/v1')->group(function() {
+    Route::get('/categories/search', 'search');
     Route::get('/categories', 'index');
     Route::post('/categories', 'create');
     Route::get('/categories/{titulo}', 'show');
     Route::delete('/categories/{titulo}', 'delete');
     Route::put('/categories/{titulo}', 'update');
-    Route::get('/categories/search/{query}', 'search');
 });

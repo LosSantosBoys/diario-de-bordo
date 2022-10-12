@@ -22,12 +22,12 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 // Posts
 Route::controller(PostController::class)->prefix('/v1')->group(function() {
+    Route::get('/posts/search', 'search');
     Route::get('/posts', 'index');
     Route::post('/posts', 'create');
     Route::get('/posts/{slug}', 'show');
     Route::delete('/posts/{slug}', 'delete');
     Route::put('/posts/{slug}', 'update');
-    Route::get('/posts/search/{query}', 'search');
 });
 
 // Categorias
@@ -35,7 +35,7 @@ Route::controller(CategoryController::class)->prefix('/v1')->group(function() {
     Route::get('/categories/search', 'search');
     Route::get('/categories', 'index');
     Route::post('/categories', 'create');
-    Route::get('/categories/{titulo}', 'show');
-    Route::delete('/categories/{titulo}', 'delete');
-    Route::put('/categories/{titulo}', 'update');
+    Route::get('/categories/{slug}', 'show');
+    Route::delete('/categories/{slug}', 'delete');
+    Route::put('/categories/{slug}', 'update');
 });

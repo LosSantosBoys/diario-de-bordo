@@ -140,4 +140,23 @@ class PostTest extends TestCase
                 ]
             );
     }
+
+    /**
+     * Testa se a API de lista retorna vazia.
+     *
+     * @return void
+    */
+    public function test_if_list_endpoint_returns_an_empty_list()
+    {
+        $this->json('GET', API_PATH)
+            ->assertStatus(200)
+            ->assertJsonStructure(
+                [
+                    'data' => [],
+                    'meta' => [
+                        'count'
+                    ]
+                ]
+            );
+    }
 }

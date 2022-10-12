@@ -5,8 +5,6 @@ namespace Tests\Feature;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
-const API_PATH = '/api/v1/posts';
-
 class PostTest extends TestCase
 {
     use RefreshDatabase;
@@ -18,7 +16,7 @@ class PostTest extends TestCase
     */
     public function test_if_create_endpoint_returns_a_successful_response()
     {
-        $response = $this->json('POST', API_PATH, [
+        $response = $this->json('POST', '/api/v1/posts', [
             "titulo" => "Título de teste",
             "conteudo" => "conteudo de teste"
         ]);
@@ -38,12 +36,12 @@ class PostTest extends TestCase
     */
     public function test_if_edit_endpoint_returns_a_successful_response()
     {
-        $this->json('POST', API_PATH, [
+        $this->json('POST', '/api/v1/posts', [
             "titulo" => "Título de teste",
             "conteudo" => "conteudo de teste"
         ]);
         
-        $response = $this->json('PUT', API_PATH . '/titulo-de-teste', [
+        $response = $this->json('PUT', '/api/v1/posts/titulo-de-teste', [
             "slug" => "titulo de teste atualizado",
             "titulo" => "Título de teste atualizado",
             "conteudo" => "conteudo de teste atualizado"
@@ -64,12 +62,12 @@ class PostTest extends TestCase
     */
     public function test_if_delete_endpoint_returns_a_successful_response()
     {
-        $this->json('POST', API_PATH, [
+        $this->json('POST', '/api/v1/posts', [
             "titulo" => "Título de teste",
             "conteudo" => "conteudo de teste"
         ]);
 
-        $this->json('DELETE', API_PATH . '/titulo-de-teste');
+        $this->json('DELETE', '/api/v1/posts/titulo-de-teste');
         $this->assertDatabaseMissing('posts', [
             'titulo' => 'Título de teste',
         ]);
@@ -82,12 +80,12 @@ class PostTest extends TestCase
     */
     public function test_if_show_endpoint_returns_a_successful_response()
     {
-        $this->json('POST', API_PATH, [
+        $this->json('POST', '/api/v1/posts', [
             "titulo" => "Título de teste",
             "conteudo" => "conteudo de teste"
         ]);
 
-        $this->json('GET', API_PATH)
+        $this->json('GET', '/api/v1/posts')
             ->assertStatus(200)
             ->assertJsonStructure(
                 [
@@ -114,12 +112,12 @@ class PostTest extends TestCase
     */
     public function test_if_list_endpoint_returns_a_successful_response()
     {
-        $this->json('POST', API_PATH, [
+        $this->json('POST', '/api/v1/posts', [
             "titulo" => "Título de teste",
             "conteudo" => "conteudo de teste"
         ]);
 
-        $this->json('GET', API_PATH)
+        $this->json('GET', '/api/v1/posts')
             ->assertStatus(200)
             ->assertJsonStructure(
                 [
@@ -146,7 +144,7 @@ class PostTest extends TestCase
     */
     public function test_if_list_endpoint_returns_an_empty_list()
     {
-        $this->json('GET', API_PATH)
+        $this->json('GET', '/api/v1/posts')
             ->assertStatus(200)
             ->assertJsonStructure(
                 [

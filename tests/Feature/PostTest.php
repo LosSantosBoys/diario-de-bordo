@@ -21,7 +21,7 @@ class PostTest extends TestCase
             "conteudo" => "conteudo de teste"
         ]);
 
-        $response->assertStatus(200);
+        $response->assertStatus(201);
         $this->assertDatabaseHas('posts', [
             "slug" => "titulo-de-teste",
             "titulo" => "Título de teste",

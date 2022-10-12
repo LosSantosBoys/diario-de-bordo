@@ -19,6 +19,14 @@ class PostController extends Controller
 
     public function show($slug) {
         $post = Post::where('slug', $slug)->first();
+    
+        if ($post == null) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Post não encontrado.'
+            ], 400);
+        }
+
         return new PostResource($post);
     }
 
@@ -37,9 +45,19 @@ class PostController extends Controller
 
         $this->validate($request, $rules, $feedback);
 
+        $slug = clean($request->titulo);
+        $checkPost = Post::where('slug', $slug)->first();
+    
+        if ($checkPost != null) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Post já existe.'
+            ], 400);
+        }
+
         $post = new Post();
 
-        $post->slug = clean($request->titulo);
+        $post->slug = $slug;
         $post->titulo = trim($request->titulo);
         $post->conteudo = trim($request->conteudo);
         $post->categoria_id = $request->categoria_id;
@@ -66,6 +84,13 @@ class PostController extends Controller
         $this->validate($request, $rules, $feedback);
 
         $post = Post::where('slug', $slug)->first();
+    
+        if (!$post) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Post não encontrado.'
+            ], 400);
+        }
 
         $newSlug = clean($request->slug);
         $post->slug = $newSlug;

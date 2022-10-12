@@ -105,7 +105,7 @@ if (!function_exists('clean')) {
         $string = trim($string);
         $string = str_replace(' ', '-', $string); // Replaces all spaces with hyphens.
 
-        return preg_replace('/-+/', '-', $string); // Replaces multiple hyphens with single one.
+        return strtolower(preg_replace('/-+/', '-', $string)); // Replaces multiple hyphens with single one.
     }
 }
 

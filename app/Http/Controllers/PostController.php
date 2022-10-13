@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Post;
 use Illuminate\Support\Facades\DB;
 use App\Http\Resources\PostResource;
 use App\Http\Resources\PostCollection;
+use App\Models\Post;
 
 require_once __DIR__ . '/../../helpers.php';
 
@@ -41,15 +41,18 @@ class PostController extends Controller
 
     public function create(Request $request) {
         $rules = [
-            'titulo' => 'required|min:3|max:70',
-            'conteudo' => 'required|min: 5'
+            'titulo' => 'required|min:3|max:70|unique:posts',
+            'conteudo' => 'required|min: 5',
+            'data_de_publicacao' => 'date'
         ];
 
         $feedback = [
             'required' => 'O campo :attribute deve ser preenchido.',
+            'titulo.unique' => 'Um post com esse título já existe.',
             'titulo.min' => 'O campo titulo deve ter no mínimo 3 caracteres.',
             'titulo.max' => 'O campo titulo deve ter no máximo 70 caracteres.',
             'conteudo.min' => 'O campo conteudo deve ter no mínimo 5 caracteres.',
+            'date' => 'O campo :attribute deve ser uma data.',
         ];
 
         $this->validate($request, $rules, $feedback);

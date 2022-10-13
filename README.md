@@ -15,27 +15,28 @@ Back-end do Diário de Bordo do projeto Mental-aid. Desenvolvido com PHP no prim
 -   [x] Listagem de posts
 -   [x] Exclusão de posts
 -   [x] Edição de posts
--   [ ] Paginação de posts
 -   [x] Exibição de posts
+-   [x] Pesquisa de posts
+-   [x] Filtro de posts
+-   [ ] Paginação de posts
 -   [ ] Likes? de posts
 -   [ ] Comentários? de posts
 -   [x] Cadastro de categorias
 -   [x] Listagem de categorias
 -   [x] Exclusão de categorias
 -   [x] Edição de categorias
+-   [x] Pesquisa de categorias
+-   [x] Testes de banco de dados
+-   [x] Testes de API de posts
+-   [x] Testes de API de categorias
 
 ## Recursos
-- [x] Pesquisa de posts
-- [x] Cadastro de posts
-- [x] Edição de posts
-- [x] Exclusão de posts
-- [x] Visualização de posts
 
-- [x] Pesquisa de categorias
-- [x] Cadastro de categorias
-- [x] Edição de categorias
-- [x] Exclusão de categorias
-- [x] Visualização de categorias
+-   CRUD de posts
+-   Pesquisa de posts
+-   Filtro de posts
+-   CRUD de categorias
+-   Pesquisa de categorias
 
 ## API
 
@@ -66,6 +67,14 @@ O front-end precisa que o back-end esteja sendo executado para funcionar correta
 ### Pré requisitos
 
 -   [Git](https://git-scm.com)
+
+## Rodando os testes
+
+Para rodar os testes, rode o seguinte comando:
+
+```bash
+php artisan test
+```
 
 ## Insomnia
 

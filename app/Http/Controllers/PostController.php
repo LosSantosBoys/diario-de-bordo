@@ -12,9 +12,18 @@ require_once __DIR__ . '/../../helpers.php';
 
 class PostController extends Controller
 {
-    public function index() {
-        $posts = Post::all();
-        return new PostCollection($posts);
+    public function index(Request $request) {
+        $posts = Post::query();
+
+        if ($request->query('titulo')) {
+            $posts->where('titulo', 'LIKE', '%' . $request->query('titulo') . '%');
+        }
+
+        if ($request->query('slug')) {
+            $posts->where('slug', 'LIKE', '%' . $request->query('slug') . '%');
+        }
+
+        return new PostCollection($posts->get());
     }
 
     public function show($slug) {

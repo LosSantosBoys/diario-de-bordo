@@ -29,6 +29,12 @@ Back-end do Diário de Bordo do projeto Mental-aid. Desenvolvido com PHP no prim
 -   [x] Testes de banco de dados
 -   [x] Testes de API de posts
 -   [x] Testes de API de categorias
+-   [ ] Cadastro de usuários
+-   [ ] Listagem de usuários
+-   [ ] Edição de usuários
+-   [ ] Exclusão de usuários
+-   [ ] Visualização de usuários
+-   [ ] Pesquisa de usuários
 
 ## Recursos
 

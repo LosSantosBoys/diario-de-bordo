@@ -18,6 +18,8 @@ return new class extends Migration
             $table->string('slug')->unique();
             $table->string('titulo');
             $table->longText('conteudo');
+            $table->boolean('visivel')->default(true);
+            $table->timestamp('data_de_publicacao')->useCurrent()->useCurrentOnUpdate();
             $table->timestamps();
             $table->unsignedInteger('categoria_id')->nullable()->constrained();
             $table->foreign('categoria_id')->nullable()->references('id')->on('categories');

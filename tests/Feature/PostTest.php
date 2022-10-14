@@ -19,7 +19,7 @@ class PostTest extends TestCase
         $response = $this->json('POST', '/api/v1/posts', [
             "titulo" => "Título de teste",
             "conteudo" => "conteudo de teste",
-            "data_de_publicacao" => '2022-10-13 21:37:35',
+            "dataDePublicacao" => '2022-10-13 21:37:35',
             "visivel" => 1
         ]);
 
@@ -28,7 +28,7 @@ class PostTest extends TestCase
             "slug" => "titulo-de-teste",
             "titulo" => "Título de teste",
             "conteudo" => "conteudo de teste",
-            "data_de_publicacao" => '2022-10-13 21:37:35',
+            "dataDePublicacao" => '2022-10-13 21:37:35',
             "visivel" => 1,
         ],);
     }
@@ -43,7 +43,7 @@ class PostTest extends TestCase
         $this->json('POST', '/api/v1/posts', [
             "titulo" => "Título de teste",
             "conteudo" => "conteudo de teste",
-            "data_de_publicacao" => '2022-10-13 21:37:35',
+            "dataDePublicacao" => '2022-10-13 21:37:35',
             "visivel" => 1
         ]);
         
@@ -51,7 +51,7 @@ class PostTest extends TestCase
             "slug" => "titulo de teste atualizado",
             "titulo" => "Título de teste atualizado",
             "conteudo" => "conteudo de teste atualizado",
-            "data_de_publicacao" => '2022-10-14 21:37:35',
+            "dataDePublicacao" => '2022-10-14 21:37:35',
             "visivel" => 0
         ]);
 
@@ -60,7 +60,7 @@ class PostTest extends TestCase
             "slug" => "titulo-de-teste-atualizado",
             "titulo" => "Título de teste atualizado",
             "conteudo" => "conteudo de teste atualizado",
-            "data_de_publicacao" => '2022-10-14 21:37:35',
+            "dataDePublicacao" => '2022-10-14 21:37:35',
             "visivel" => 0
         ],);
     }
@@ -93,7 +93,7 @@ class PostTest extends TestCase
         $this->json('POST', '/api/v1/posts', [
             "titulo" => "Título de teste",
             "conteudo" => "conteudo de teste",
-            "data_de_publicacao" => '2022-10-13 21:37:35',
+            "dataDePublicacao" => '2022-10-13 21:37:35',
             "visivel" => 1
         ]);
 
@@ -108,8 +108,8 @@ class PostTest extends TestCase
                             'titulo',
                             'conteudo',
                             'visivel',
-                            'data_de_publicacao',
-                            'categoria_id'
+                            'dataDePublicacao',
+                            'categoriaId'
                         ]
                     ],
                     'meta' => [
@@ -129,7 +129,7 @@ class PostTest extends TestCase
         $this->json('POST', '/api/v1/posts', [
             "titulo" => "Título de teste",
             "conteudo" => "conteudo de teste",
-            "data_de_publicacao" => '2022-10-13 21:37:35',
+            "dataDePublicacao" => '2022-10-13 21:37:35',
             "visivel" => 1
         ]);
 
@@ -144,8 +144,8 @@ class PostTest extends TestCase
                             'titulo',
                             'conteudo',
                             'visivel',
-			                'data_de_publicacao',
-                            'categoria_id'
+			                'dataDePublicacao',
+                            'categoriaId'
                         ]
                     ],
                     'meta' => [

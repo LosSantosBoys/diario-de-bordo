@@ -48,7 +48,7 @@ class PostController extends Controller
             'titulo' => 'required|min:3|max:70|unique:posts',
             'conteudo' => 'required|min: 5',
             'visivel' => 'required',
-            'data_de_publicacao' => 'required|date',
+            'dataDePublicacao' => 'required|date',
         ];
 
         $feedback = [
@@ -58,7 +58,7 @@ class PostController extends Controller
             'titulo.max' => 'O campo titulo deve ter no máximo 70 caracteres.',
             'conteudo.min' => 'O campo conteudo deve ter no mínimo 5 caracteres.',
             'visivel.boolean' => 'O campo visivel precisa ser booleano `true` ou `false`.',
-            'data_de_publicacao.date' => 'O campo data_de_publicacao precisa ser uma data.',
+            'dataDePublicacao.date' => 'O campo dataDePublicacao precisa ser uma data.',
         ];
 
         $this->validate($request, $rules, $feedback);
@@ -80,7 +80,7 @@ class PostController extends Controller
         $post->conteudo = trim($request->conteudo);
         $post->categoria_id = $request->categoria_id;
         $post->visivel = $request->visivel;
-        $post->data_de_publicacao = $request->data_de_publicacao;
+        $post->data_de_publicacao = $request->dataDePublicacao;
         
         $post->save();
         return new PostResource($post);
@@ -92,7 +92,7 @@ class PostController extends Controller
             'titulo' => 'required|min:3|max:70',
             'conteudo' => 'required|min: 5',
             'visivel' => 'required',
-            'data_de_publicacao' => 'required|date',
+            'dataDePublicacao' => 'required|date',
         ];
 
         $feedback = [
@@ -102,7 +102,7 @@ class PostController extends Controller
             'titulo.max' => 'O campo titulo deve ter no máximo 70 caracteres.',
             'conteudo.min' => 'O campo conteudo deve ter no mínimo 5 caracteres.',
             'visivel.boolean' => 'O campo visivel precisa ser booleano `true` ou `false`.',
-            'data_de_publicacao.date' => 'O campo data_de_publicacao precisa ser uma data.',
+            'dataDePublicacao.date' => 'O campo dataDePublicacao precisa ser uma data.',
         ];
 
         $this->validate($request, $rules, $feedback);
@@ -122,7 +122,7 @@ class PostController extends Controller
         $post->conteudo = trim($request->conteudo);
         $post->categoria_id = $request->categoria_id;
         $post->visivel = $request->visivel;
-        $post->data_de_publicacao = $request->data_de_publicacao;
+        $post->data_de_publicacao = $request->dataDePublicacao;
 
         $post->save();
         return new PostResource($post);

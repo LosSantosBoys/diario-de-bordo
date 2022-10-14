@@ -27,7 +27,7 @@ class PostController extends Controller
             ->where('visivel', '=', 1)
             ->orderBy('data_de_publicacao', 'ASC');
 
-        return new PostCollection($posts->get());
+        return new PostCollection($posts->get()->paginate(15));
     }
 
     public function show($slug) {

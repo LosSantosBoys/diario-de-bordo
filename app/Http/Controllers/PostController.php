@@ -23,6 +23,10 @@ class PostController extends Controller
             $posts->where('slug', 'LIKE', '%' . $request->query('slug') . '%');
         }
 
+        $posts->where('data_de_publicacao', '<', now())
+            ->where('visivel', '=', 1)
+            ->orderBy('data_de_publicacao', 'ASC');
+
         return new PostCollection($posts->get());
     }
 
@@ -43,7 +47,8 @@ class PostController extends Controller
         $rules = [
             'titulo' => 'required|min:3|max:70|unique:posts',
             'conteudo' => 'required|min: 5',
-            'data_de_publicacao' => 'date'
+            'visivel' => 'required',
+            'data_de_publicacao' => 'required|date',
         ];
 
         $feedback = [
@@ -52,7 +57,8 @@ class PostController extends Controller
             'titulo.min' => 'O campo titulo deve ter no mínimo 3 caracteres.',
             'titulo.max' => 'O campo titulo deve ter no máximo 70 caracteres.',
             'conteudo.min' => 'O campo conteudo deve ter no mínimo 5 caracteres.',
-            'date' => 'O campo :attribute deve ser uma data.',
+            'visivel.boolean' => 'O campo visivel precisa ser booleano `true` ou `false`.',
+            'data_de_publicacao.date' => 'O campo data_de_publicacao precisa ser uma data.',
         ];
 
         $this->validate($request, $rules, $feedback);
@@ -73,6 +79,8 @@ class PostController extends Controller
         $post->titulo = trim($request->titulo);
         $post->conteudo = trim($request->conteudo);
         $post->categoria_id = $request->categoria_id;
+        $post->visivel = $request->visivel;
+        $post->data_de_publicacao = $request->data_de_publicacao;
         
         $post->save();
         return new PostResource($post);
@@ -82,7 +90,9 @@ class PostController extends Controller
         $rules = [
             'slug' => 'required|min:3',
             'titulo' => 'required|min:3|max:70',
-            'conteudo' => 'required|min: 5'
+            'conteudo' => 'required|min: 5',
+            'visivel' => 'required',
+            'data_de_publicacao' => 'required|date',
         ];
 
         $feedback = [
@@ -91,6 +101,8 @@ class PostController extends Controller
             'titulo.min' => 'O campo titulo deve ter no mínimo 3 caracteres.',
             'titulo.max' => 'O campo titulo deve ter no máximo 70 caracteres.',
             'conteudo.min' => 'O campo conteudo deve ter no mínimo 5 caracteres.',
+            'visivel.boolean' => 'O campo visivel precisa ser booleano `true` ou `false`.',
+            'data_de_publicacao.date' => 'O campo data_de_publicacao precisa ser uma data.',
         ];
 
         $this->validate($request, $rules, $feedback);
@@ -109,6 +121,8 @@ class PostController extends Controller
         $post->titulo = trim($request->titulo);
         $post->conteudo = trim($request->conteudo);
         $post->categoria_id = $request->categoria_id;
+        $post->visivel = $request->visivel;
+        $post->data_de_publicacao = $request->data_de_publicacao;
 
         $post->save();
         return new PostResource($post);

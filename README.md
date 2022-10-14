@@ -44,6 +44,23 @@ Back-end do Diário de Bordo do projeto Mental-aid. Desenvolvido com PHP no prim
 -   CRUD de categorias
 -   Pesquisa de categorias
 
+## [API Design](https://tomyjaya.github.io/2018/02/01/api-design/)
+- [x] Utilizar endpoint de recursos e verbos HTTP
+- [x] Retornar os códigos HTTPs corretos
+- [x] Suporte para filtros
+- [ ] Suporte para ordem
+- [ ] Suporte para projeção de campos
+- [x] Suporte para paginação
+- [x] Suporte para pesquisa
+- [x] Versionamento de API
+- [ ] Controle de formato de serialização via header HTTP
+- [ ] Uso de HATEOAS
+- [x] Uso de camelCase
+- [x] Uso de objetos de erro
+- [ ] Documentação versionada da API com exemplos
+- [ ] Uso assíncrono
+- [ ] Uso de Wrapper Object em vez de Primitivos
+
 ## API
 
 | Método | Rota                 | Descrição                                  |

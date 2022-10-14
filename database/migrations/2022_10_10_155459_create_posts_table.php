@@ -19,10 +19,10 @@ return new class extends Migration
             $table->string('titulo');
             $table->longText('conteudo');
             $table->boolean('visivel')->default(true);
-            $table->timestamp('data_de_publicacao')->useCurrent()->useCurrentOnUpdate();
+            $table->timestamp('dataDePublicacao')->useCurrent()->useCurrentOnUpdate();
             $table->timestamps();
-            $table->unsignedInteger('categoria_id')->nullable()->constrained();
-            $table->foreign('categoria_id')->nullable()->references('id')->on('categories');
+            $table->unsignedInteger('categoriaId')->nullable()->constrained();
+            $table->foreign('categoriaId')->nullable()->references('id')->on('categories');
         });
     }
 

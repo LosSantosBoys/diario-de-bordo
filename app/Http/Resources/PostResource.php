@@ -20,7 +20,7 @@ class PostResource extends JsonResource {
             'conteudo' => $this->conteudo,
             'visivel' => $this->visivel,
             'dataDePublicacao' => $this->dataDePublicacao,
-            'categoriaId' => $this->categoria_id,
+            'categoriaId' => $this->categoriaId,
         ];
     }
 }

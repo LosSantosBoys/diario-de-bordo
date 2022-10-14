@@ -23,9 +23,9 @@ class PostController extends Controller
             $posts->where('slug', 'LIKE', '%' . $request->query('slug') . '%');
         }
 
-        $posts->where('data_de_publicacao', '<', now())
+        $posts->where('dataDePublicacao', '<', now())
             ->where('visivel', '=', 1)
-            ->orderBy('data_de_publicacao', 'ASC');
+            ->orderBy('dataDePublicacao', 'ASC');
 
         return new PostCollection($posts->get()->paginate(15));
     }
@@ -78,9 +78,9 @@ class PostController extends Controller
         $post->slug = $slug;
         $post->titulo = trim($request->titulo);
         $post->conteudo = trim($request->conteudo);
-        $post->categoria_id = $request->categoria_id;
+        $post->categoriaId = $request->categoriaId;
         $post->visivel = $request->visivel;
-        $post->data_de_publicacao = $request->dataDePublicacao;
+        $post->dataDePublicacao = $request->dataDePublicacao;
         
         $post->save();
         return new PostResource($post);
@@ -120,9 +120,9 @@ class PostController extends Controller
         $post->slug = $newSlug;
         $post->titulo = trim($request->titulo);
         $post->conteudo = trim($request->conteudo);
-        $post->categoria_id = $request->categoria_id;
+        $post->categoriaId = $request->categoriaId;
         $post->visivel = $request->visivel;
-        $post->data_de_publicacao = $request->dataDePublicacao;
+        $post->dataDePublicacao = $request->dataDePublicacao;
 
         $post->save();
         return new PostResource($post);

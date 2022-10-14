@@ -15,7 +15,7 @@ class Post extends Model
      * @var string[]
      */
     protected $fillable = [
-        'titulo', 'conteudo', 'visivel', 'data_de_publicacao',
+        'titulo', 'conteudo', 'visivel', 'dataDePublicacao',
     ];
 
     /**

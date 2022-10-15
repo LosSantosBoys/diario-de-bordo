@@ -77,7 +77,7 @@ Back-end do Diário de Bordo do projeto Mental-aid. Desenvolvido com PHP no prim
 | GET    | /categories/:id            | Lista dados de uma categoria específica    |
 | PUT    | /categories/:id            | Atualiza dados de uma categoria específica |
 | DELETE | /categories/:id            | Apaga uma categoria específica             |
-| GET    | /categorias/search?q=:query| Pesquisa uma categoria pelo título ou slug |
+| GET    | /categories/search?q=:query| Pesquisa uma categoria pelo título ou slug |
 
 ## Como usar
 

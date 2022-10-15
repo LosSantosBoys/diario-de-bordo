@@ -31,7 +31,7 @@ class PostFactory extends Factory
             'titulo' => $this->faker->sentence(),
             'conteudo' => $this->faker->text(),
             'visivel' => $this->faker->boolean(),
-            'dataDePublicacao' => $this->faker->dateTimeBetween('now', '+14 days'),
+            'dataDePublicacao' => $this->faker->dateTimeBetween('-14 days', '+14 days'),
         ];
     }
 }

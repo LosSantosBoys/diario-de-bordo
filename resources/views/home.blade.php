@@ -19,7 +19,7 @@
                     <div class="post-more">
                         <a
                             class="text-decoration-none text-lg text-lg-hover"
-                            href="./pages/post.html">
+                            href="/posts/{{ $post->slug }}">
                                 Leia mais
                         </a>
                     </div>

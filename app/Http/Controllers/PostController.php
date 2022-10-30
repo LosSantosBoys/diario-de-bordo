@@ -29,7 +29,13 @@ class PostController extends Controller
                 ->where('visivel', '=', 1)
                 ->orderBy('dataDePublicacao', 'ASC');
 
-            return new PostCollection($posts->get()->paginate(15));
+            if ($request->is('api/*')) {
+                return new PostCollection($posts->get()->paginate(15));
+            } else {
+                return view('home', [
+                    'posts' =>  new PostCollection($posts->get()->paginate(15))
+                ]);
+            }
         } catch (\Throwable $th) {
             return response()->json([
                 'status' => 'error',

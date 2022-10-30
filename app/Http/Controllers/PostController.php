@@ -44,7 +44,7 @@ class PostController extends Controller
         }
     }
 
-    public function show($slug)
+    public function show(Request $request, $slug)
     {
         try {
             $post = Post::where('slug', $slug)->first();
@@ -56,7 +56,14 @@ class PostController extends Controller
                 ], 400);
             }
 
-            return new PostResource($post);
+
+            if ($request->is('api/*')) {
+                return new PostResource($post);
+            } else {
+                return view('posts.index', [
+                    'post' =>  new PostResource($post)
+                ]);
+            }
         } catch (\Throwable $th) {
             return response()->json([
                 'status' => 'error',
@@ -198,7 +205,13 @@ class PostController extends Controller
                 ->orWhere('slug', 'LIKE', "%{$query}%")
                 ->get();
 
-            return new PostCollection($posts);
+            if ($request->is('api/*')) {
+                return new PostCollection($posts);
+            } else {
+                return view('home', [
+                    'posts' =>  new PostCollection($posts)
+                ]);
+            }
         } catch (\Throwable $th) {
             return response()->json([
                 'status' => 'error',

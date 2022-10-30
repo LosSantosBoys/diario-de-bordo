@@ -13,10 +13,27 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/', [App\Http\Controllers\PostController::class, 'index'])->name('home');
+
+// Posts
+Route::controller(PostController::class)->group(function() {
+    Route::get('/posts/search', 'search');
+    Route::get('/posts', 'index');
+    Route::post('/posts', 'create');
+    Route::get('/posts/{slug}', 'show');
+    Route::delete('/posts/{slug}', 'delete');
+    Route::put('/posts/{slug}', 'update');
+});
+
+// Categorias
+Route::controller(CategoryController::class)->group(function() {
+    Route::get('/categories/search', 'search');
+    Route::get('/categories', 'index');
+    Route::post('/categories', 'create');
+    Route::get('/categories/{slug}', 'show');
+    Route::delete('/categories/{slug}', 'delete');
+    Route::put('/categories/{slug}', 'update');
+});

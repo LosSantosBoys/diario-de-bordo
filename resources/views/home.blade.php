@@ -11,7 +11,7 @@
                 </div>
                 <div class="post-card">
                     <div class="post-title">
-                        <h3>{{ new \Moment\Moment($post->dataDePublicacao).format() }} - {{ $post->titulo }}</h3>
+                        <h3><span name="data-publicacao">{{ $post->dataDePublicacao }}</span> - {{ $post->titulo }}</h3>
                     </div>
                     <div class="post-content">
                         {{ $post->conteudo }}

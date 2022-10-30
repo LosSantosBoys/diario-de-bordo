@@ -27,7 +27,7 @@ class PostController extends Controller
 
             $posts->where('dataDePublicacao', '<', now())
                 ->where('visivel', '=', 1)
-                ->orderBy('dataDePublicacao', 'ASC');
+                ->orderBy('dataDePublicacao', 'DESC');
 
             if ($request->is('api/*')) {
                 return new PostCollection($posts->get()->paginate(15));

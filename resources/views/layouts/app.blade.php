@@ -42,7 +42,7 @@
             </div>
 
             <div class="text-lg">
-                <h3>DATA</h3>
+                <h3 id="data-agora">{{ date('Y-m-d H:i:s') }}</h3>
             </div>
 
                 <button
@@ -110,6 +110,6 @@
             crossorigin="anonymous"
         ></script>
         <script src="https://momentjs.com/downloads/moment-with-locales.js"></script>
-        @vite(['resources/js/post.js'])
+        @vite(['resources/js/post.js', 'resources/js/main.js'])
 </body>
 </html>

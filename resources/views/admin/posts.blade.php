@@ -26,14 +26,27 @@
                 <td>{{ $post->categoriaId }}</td>
                 <td>{{ $post->dataDePublicacao }}</td>
                 <td>
-                    <a href="/admin/posts/{{ $post->slug }}">
-                        <i class="mx-2 fa-solid fa-pen-to-square"></i>
-                    </a>
-                    <i class="fa-solid fa-trash"></i>
+                    <button class="btn btn-primary px-3 waves-effect waves-light" onclick="navegar('{{ $post->slug }}')" type="button">
+                        <i class="fa-solid fa-pen-to-square"></i>
+                    </button>
+                    <button class="btn btn-danger px-3 waves-effect waves-light" onclick="deletar('{{ $post->slug }}')" type="button">
+                        <i class="fa-solid fa-trash"></i>
+                    </button>
                 </td>
             </tr>
             @endforeach
         </tbody>
     </table>
 </main>
+
+<script>
+    function navegar(slug) {
+        window.location.href = '/admin/posts/' + slug
+    }
+
+    function deletar(slug) {
+        fetch('/api/v1/posts/' + slug, { method: 'DELETE' },).then(() => location.reload())
+    }
+</script>
+
 @endsection

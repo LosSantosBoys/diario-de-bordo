@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PostController;
+use App\Http\Controllers\CategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +15,33 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+
+Auth::routes();
+
+Route::get('/', [PostController::class, 'index'])->name('home');
+
+// Posts
+Route::controller(PostController::class)->group(function() {
+    Route::get('/posts/search', 'search');
+    Route::get('/posts', 'index');
+    Route::get('/posts/{slug}', 'show');
+});
+
+// Categorias
+Route::controller(CategoryController::class)->group(function() {
+    Route::get('/categories/search', 'search');
+    Route::get('/categories', 'index');
+    Route::post('/categories', 'create');
+    Route::get('/categories/{slug}', 'show');
+    Route::delete('/categories/{slug}', 'delete');
+    Route::put('/categories/{slug}', 'update');
+});
+
+// Admin
+Route::controller(PostController::class)->prefix('admin')->middleware('auth')->group(function() {
+    Route::get('/posts', 'index');
+    Route::get('/posts/new', 'create');
+    Route::get('/posts/{slug}', 'update');
+    Route::delete('/posts/{slug}', 'delete');
+    Route::put('/posts/{slug}', 'update');
 });

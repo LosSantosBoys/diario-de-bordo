@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Resources\PostResource;
 use App\Http\Resources\PostCollection;
 use App\Models\Post;
+use Illuminate\Support\Facades\Auth;
+use Session;
 
 require_once __DIR__ . '/../../helpers.php';
 
@@ -27,9 +29,21 @@ class PostController extends Controller
 
             $posts->where('dataDePublicacao', '<', now())
                 ->where('visivel', '=', 1)
-                ->orderBy('dataDePublicacao', 'ASC');
+                ->orderBy('dataDePublicacao', 'DESC');
 
-            return new PostCollection($posts->get()->paginate(15));
+            if ($request->is('api/*')) {
+                return new PostCollection($posts->get()->paginate(15));
+            }
+
+            if (Auth::user()) {
+                return view('admin.posts', [
+                    'posts' =>  new PostCollection($posts->get()->paginate(15))
+                ]);
+            } else {
+                return view('home', [
+                    'posts' =>  new PostCollection($posts->get()->paginate(15))
+                ]);
+            }
         } catch (\Throwable $th) {
             return response()->json([
                 'status' => 'error',
@@ -38,7 +52,7 @@ class PostController extends Controller
         }
     }
 
-    public function show($slug)
+    public function show(Request $request, $slug)
     {
         try {
             $post = Post::where('slug', $slug)->first();
@@ -50,7 +64,14 @@ class PostController extends Controller
                 ], 400);
             }
 
-            return new PostResource($post);
+
+            if ($request->is('api/*')) {
+                return new PostResource($post);
+            } else {
+                return view('posts.index', [
+                    'post' =>  new PostResource($post)
+                ]);
+            }
         } catch (\Throwable $th) {
             return response()->json([
                 'status' => 'error',
@@ -62,46 +83,54 @@ class PostController extends Controller
     public function create(Request $request)
     {
         try {
-            $rules = [
-                'titulo' => 'required|min:3|max:70|unique:posts',
-                'conteudo' => 'required|min: 5',
-                'visivel' => 'required',
-                'dataDePublicacao' => 'required|date',
-            ];
+            if ($request->is('api/*')) {
+                $rules = [
+                    'titulo' => 'required|min:3|max:70|unique:posts',
+                    'conteudo' => 'required|min: 5',
+                    'dataDePublicacao' => 'required|date',
+                ];
 
-            $feedback = [
-                'required' => 'O campo :attribute deve ser preenchido.',
-                'titulo.unique' => 'Um post com esse título já existe.',
-                'titulo.min' => 'O campo titulo deve ter no mínimo 3 caracteres.',
-                'titulo.max' => 'O campo titulo deve ter no máximo 70 caracteres.',
-                'conteudo.min' => 'O campo conteudo deve ter no mínimo 5 caracteres.',
-                'visivel.boolean' => 'O campo visivel precisa ser booleano `true` ou `false`.',
-                'dataDePublicacao.date' => 'O campo dataDePublicacao precisa ser uma data.',
-            ];
+                $feedback = [
+                    'required' => 'O campo :attribute deve ser preenchido.',
+                    'titulo.unique' => 'Um post com esse título já existe.',
+                    'titulo.min' => 'O campo titulo deve ter no mínimo 3 caracteres.',
+                    'titulo.max' => 'O campo titulo deve ter no máximo 70 caracteres.',
+                    'conteudo.min' => 'O campo conteudo deve ter no mínimo 5 caracteres.',
+                    'dataDePublicacao.date' => 'O campo dataDePublicacao precisa ser uma data.',
+                ];
 
-            $this->validate($request, $rules, $feedback);
+                $this->validate($request, $rules, $feedback);
 
-            $slug = clean($request->titulo);
-            $checkPost = Post::where('slug', $slug)->first();
+                $slug = clean($request->titulo);
+                $checkPost = Post::where('slug', $slug)->first();
 
-            if ($checkPost != null) {
-                return response()->json([
-                    'status' => 'error',
-                    'message' => 'Post já existe.'
-                ], 400);
+                if ($checkPost != null) {
+                    return response()->json([
+                        'status' => 'error',
+                        'message' => 'Post já existe.'
+                    ], 400);
+                }
+
+                $post = new Post();
+
+                $post->slug = $slug;
+                $post->titulo = trim($request->titulo);
+                $post->conteudo = trim($request->conteudo);
+                $post->categoriaId = $request->categoriaId;
+                $post->visivel = true;
+                $post->dataDePublicacao = $request->dataDePublicacao;
+
+                $post->save();
+
+                Session::flash('msg', 'Post cadastrado com sucesso!');
+                return redirect('/admin/posts');
             }
 
-            $post = new Post();
+            if (Auth::user()) {
+                $post = new Post();
 
-            $post->slug = $slug;
-            $post->titulo = trim($request->titulo);
-            $post->conteudo = trim($request->conteudo);
-            $post->categoriaId = $request->categoriaId;
-            $post->visivel = $request->visivel;
-            $post->dataDePublicacao = $request->dataDePublicacao;
-
-            $post->save();
-            return new PostResource($post);
+                return view('admin.post', compact('post'));
+            }
         } catch (\Throwable $th) {
             return response()->json([
                 'status' => 'error',
@@ -113,45 +142,46 @@ class PostController extends Controller
     public function update(Request $request, $slug)
     {
         try {
-            $rules = [
-                'slug' => 'required|min:3',
-                'titulo' => 'required|min:3|max:70',
-                'conteudo' => 'required|min: 5',
-                'visivel' => 'required',
-                'dataDePublicacao' => 'required|date',
-            ];
-
-            $feedback = [
-                'required' => 'O campo :attribute deve ser preenchido.',
-                'slug.min' => 'O campo slug deve ter no mínimo 3 caracteres.',
-                'titulo.min' => 'O campo titulo deve ter no mínimo 3 caracteres.',
-                'titulo.max' => 'O campo titulo deve ter no máximo 70 caracteres.',
-                'conteudo.min' => 'O campo conteudo deve ter no mínimo 5 caracteres.',
-                'visivel.boolean' => 'O campo visivel precisa ser booleano `true` ou `false`.',
-                'dataDePublicacao.date' => 'O campo dataDePublicacao precisa ser uma data.',
-            ];
-
-            $this->validate($request, $rules, $feedback);
-
             $post = Post::where('slug', $slug)->first();
 
             if (!$post) {
-                return response()->json([
-                    'status' => 'error',
-                    'message' => 'Post não encontrado.'
-                ], 400);
+                Session::flash('msg', 'Post não encontrado!');
+                return redirect('/admin/posts');
             }
 
-            $newSlug = clean($request->slug);
-            $post->slug = $newSlug;
-            $post->titulo = trim($request->titulo);
-            $post->conteudo = trim($request->conteudo);
-            $post->categoriaId = $request->categoriaId;
-            $post->visivel = $request->visivel;
-            $post->dataDePublicacao = $request->dataDePublicacao;
+            if ($request->is('api/*')) {
+                $rules = [
+                    'titulo' => 'required|min:3|max:70',
+                    'conteudo' => 'required|min: 5',
+                    'dataDePublicacao' => 'required|date',
+                ];
+    
+                $feedback = [
+                    'required' => 'O campo :attribute deve ser preenchido.',
+                    'titulo.min' => 'O campo titulo deve ter no mínimo 3 caracteres.',
+                    'titulo.max' => 'O campo titulo deve ter no máximo 70 caracteres.',
+                    'conteudo.min' => 'O campo conteudo deve ter no mínimo 5 caracteres.',
+                    'dataDePublicacao.date' => 'O campo dataDePublicacao precisa ser uma data.',
+                ];
+    
+                $this->validate($request, $rules, $feedback);
 
-            $post->save();
-            return new PostResource($post);
+                $post->slug = clean($request->titulo);
+                $post->titulo = trim($request->titulo);
+                $post->conteudo = trim($request->conteudo);
+                $post->categoriaId = $request->categoriaId;
+                $post->visivel = true;
+                $post->dataDePublicacao = $request->dataDePublicacao;
+    
+                $post->save();
+
+                Session::flash('msg', 'Post editado com sucesso!');
+                return redirect('/admin/posts');
+            }
+
+            if (Auth::user()) {
+                return view('admin.post', compact('post'));
+            }
         } catch (\Throwable $th) {
             return response()->json([
                 'status' => 'error',
@@ -192,7 +222,13 @@ class PostController extends Controller
                 ->orWhere('slug', 'LIKE', "%{$query}%")
                 ->get();
 
-            return new PostCollection($posts);
+            if ($request->is('api/*')) {
+                return new PostCollection($posts);
+            } else {
+                return view('home', [
+                    'posts' =>  new PostCollection($posts)
+                ]);
+            }
         } catch (\Throwable $th) {
             return response()->json([
                 'status' => 'error',

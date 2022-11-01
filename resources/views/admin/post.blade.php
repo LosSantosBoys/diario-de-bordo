@@ -49,6 +49,7 @@
                     id="post-data"
                     min="31-10-2022"
                     name="dataDePublicacao"
+                    value="{{ \Carbon\Carbon::parse($post->dataDePublicacao)->format('d-m-Y') }}"
                     required
                 />
             </div>
@@ -68,7 +69,9 @@
                 rows="3"
                 name="conteudo"
                 required
-            ></textarea>
+            >
+{{ $post->conteudo }}
+        </textarea>
         </div>
         <button type="submit" class="btn btn-dark mt-3 btn-lg">
             @if(is_null($post->id))

@@ -24,10 +24,7 @@ Route::get('/', [PostController::class, 'index'])->name('home');
 Route::controller(PostController::class)->group(function() {
     Route::get('/posts/search', 'search');
     Route::get('/posts', 'index');
-    Route::post('/posts', 'create');
     Route::get('/posts/{slug}', 'show');
-    Route::delete('/posts/{slug}', 'delete');
-    Route::put('/posts/{slug}', 'update');
 });
 
 // Categorias
@@ -38,4 +35,13 @@ Route::controller(CategoryController::class)->group(function() {
     Route::get('/categories/{slug}', 'show');
     Route::delete('/categories/{slug}', 'delete');
     Route::put('/categories/{slug}', 'update');
+});
+
+// Admin
+Route::controller(PostController::class)->prefix('admin')->middleware('auth')->group(function() {
+    Route::get('/posts', 'index');
+    Route::get('/posts/new', 'create');
+    Route::get('/posts/{slug}', 'update');
+    Route::delete('/posts/{slug}', 'delete');
+    Route::put('/posts/{slug}', 'update');
 });

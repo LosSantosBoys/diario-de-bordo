@@ -1,0 +1,52 @@
+/* SIDE MENU */
+.side-menu{
+    margin-left: 1.5rem;
+    width: 15rem;
+
+    a {
+        color: #000;
+    }
+
+    li{
+        padding-inline: 2rem;
+        border-bottom: 1px solid #000;
+        border-right: 1px solid #000;
+    }    
+}
+
+#blog-li {
+    border-top: 1px solid #000;
+}
+
+/* LIST */
+.title{
+    font-size: 26px;
+
+    background-color: #dfdfdf;
+}
+
+.list-label {
+    font-size: 26px;
+    font-weight: bold;
+}
+
+.border-right{
+    border-right: 1px solid #000;
+}
+
+.list-item{
+    font-size: 20px;
+}
+
+.fa-solid{
+    cursor: pointer;
+    color: #000;
+}
+
+.fa-solid:hover{
+    opacity: 0.75;
+}
+
+#post-content {
+    resize: none;
+}

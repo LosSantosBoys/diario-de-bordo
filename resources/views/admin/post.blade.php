@@ -66,11 +66,10 @@
             <textarea
                 class="form-control mt-2"
                 id="post-content"
-                rows="3"
                 name="conteudo"
                 required
             >
-{{ $post->conteudo }}
+{!! $post->conteudo !!}
         </textarea>
         </div>
         <button type="submit" class="btn btn-dark mt-3 btn-lg">
@@ -82,4 +81,12 @@
         </button>
     </form>
 </main>
+
+<script>
+    $('#post-content').summernote({
+        height: 400
+    });
+</script>
+
 @endsection
+
